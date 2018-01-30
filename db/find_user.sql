@@ -1,1 +1,1 @@
-select * from users where auth = $1;
+select * from users where id = $1;

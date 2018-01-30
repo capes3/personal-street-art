@@ -11,7 +11,8 @@ import Login from './components/Login/Login'
 export default (
     <Switch>
 
-      <Route component={ Gallery } path="/Gallery" />
+      <Route component={ Login } exact path="/" />
+      <Route component={ Gallery } path="/Gallery"/>
       <Route component={ NYC } path="/NYC" />
       <Route component={ PHI } path="/PHI" />
       <Route component={ LA } path="/LA" />

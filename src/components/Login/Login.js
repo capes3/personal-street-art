@@ -1,14 +1,14 @@
-// import React, { Component } from 'react';
+import React, { Component } from 'react';
 
 
 
-// export default class Login extends Component {
-//     render() {
-//         return (
-//             <div className='App'>  
+export default class Login extends Component {
+    render() {
+        return (
+            <div className='App'>  
                 
-//                 <a href={ process.env.REACT_APP_LOGIN }><button>Login</button></a>
-//             </div> 
-//         )
-//     }
-// }
+                <a href={ process.env.REACT_APP_LOGIN }><button>Login</button></a>
+            </div> 
+        )
+    }
+}

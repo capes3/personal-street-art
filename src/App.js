@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Gallery from './components/Gallery'
 import routes from './routes'
 import {Link} from 'react-router-dom'
+import './App.css'
 
 class App extends Component {
   constructor(){
@@ -26,13 +27,14 @@ class App extends Component {
     return (
       <div className="App">
       <nav className="Nav">
-      <div>StreetArt Locator</div> 
-          <div className='link-wrap'>
+      
+          <nav className='link-wrap'>
             <Link to="/" className='links'>Gallery</Link>
-            <Link to="/NYC" className='links'>NYC</Link>
-            <Link to="/PHI"className='links'>PHI</Link> 
-            <Link to="/LA"className='links'>LA</Link> 
-          </div>
+            <Link to="/Home" className='links'>Home</Link>
+            <Link to="/About"className='links'>About</Link> 
+            <Link to="/Explore"className='links'>Explore</Link> 
+          </nav>
+      
       </nav>
       {routes}
       

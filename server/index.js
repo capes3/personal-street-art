@@ -22,7 +22,7 @@ app.use(session({
     resave: false
 }))
 
-app.use(express.static(__dirname+'/../build'))
+// app.use(express.static(__dirname+'/../build'))
 
 app.use(passport.initialize()) // initializing passport so that you can use it. Setting up an instance of passport that you're goinng to use throughout your app
 app.use(passport.session()) //passport.session puts it back on req.user
@@ -35,23 +35,23 @@ passport.use(new Auth0Strategy({
     callbackURL:process.env.AUTH_CALLBACK
 }, function(accessToken, refreshToken, extraParams, profile, done){
 
-    //console.log(profile)
+    console.log(profile)
     
     const db = app.get('db')
-    let userData = profile._json
-        auth_id = userData.user_id.split('|')[1]
+    let userData = profile
+    let auth_id = userData.id.split('|')[1]
 
-    // 1: user_name? user.name 
-    // 2: email? user.email
-    // 3: img? user.picture
-    // 4: auth? user.user_id.split('|')[1]
+    console.log(auth_id)
 
+
+    let auth_id_int = parseInt(auth_id)
+    
 
     db.find_user([auth_id]).then( user => {
         if (user[0]){
             done(null, user[0].id)
         }else {
-            db.create_user([userData.name, userData.email, userData.picture, auth_id]).then(user =>{
+            db.create_user([auth_id, profile.name.familyName, profile.name.givenName]).then(user =>{
                 return done(null, user[0].id)
             })
         }
@@ -73,7 +73,7 @@ app.get('/auth/callback', passport.authenticate('auth0', {
 
 
 passport.serializeUser(function(user,done){
-    //req.user === id
+    // req.user === id
     
     done(null, user)
 })
@@ -101,6 +101,11 @@ app.get('/auth/logout',  function(req,res,next){
     res.redirect(process.env.AUTH_LANDING_REDIRECT)
 }
 )
+
+
+
+
+
 
 
 

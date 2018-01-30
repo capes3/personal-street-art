@@ -24,7 +24,7 @@ constructor(){
     let photos;
     if(this.state.photos){
         photos = this.state.photos.map(photo =>{
-            console.log(photo)
+            // console.log(photo)
             return (
                 <Photo key={photo.id} photo={photo}/>
             )
