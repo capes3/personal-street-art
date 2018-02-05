@@ -5,7 +5,6 @@ import axios from 'axios'
 class LA extends Component {
 constructor(){
     super()
-    this.forceUpdateHandler=this.forceUpdateHandler.bind(this);
     this.state={
         photos:""
          }
@@ -24,15 +23,21 @@ componentWillMount(){
             })
         }
 
-forceUpdateHandler(){
-    this.forceUpdate();
-};        
+handleClick = () =>{
+    console.log(this.state)
+    let savedImg = this.state
+    axios.post('/api/saved', savedImg ).then(results => {
+        alert("image was saved")
+    }).catch(()=>alert('failed at saving an image'))
+}
+
 
   render() {
       return(
           <div>
-              <button onClick={this.forceUpdateHandler}>New Image</button>
+              
               <img src={this.state.photos}/>
+              <button onClick={this.handleClick}>Save Image</button>
               
           </div>
       )

@@ -42,6 +42,7 @@ passport.use(new Auth0Strategy({
     let auth_id = userData.id.split('|')[1]
 
     console.log(auth_id)
+    
 
 
     let auth_id_int = parseInt(auth_id)
@@ -73,7 +74,7 @@ app.get('/auth/callback', passport.authenticate('auth0', {
 
 
 passport.serializeUser(function(user,done){
-    // req.user === id
+    // req.user === auth_id
     
     done(null, user)
 })
@@ -93,6 +94,7 @@ app.get('/auth/me', function (req, res, next){
 
     } else {
         res.status(200).send(req.user)
+        console.log(req.user)
     }
 })
 
@@ -101,6 +103,14 @@ app.get('/auth/logout',  function(req,res,next){
     res.redirect(process.env.AUTH_LANDING_REDIRECT)
 }
 )
+
+
+app.post('/api/saved', function(req,res,next){
+    req.app.get('db')
+        .save_img([req.sessionID, savedImg]).then(users => {
+            res.status(200).send()
+        });
+})
 
 
 

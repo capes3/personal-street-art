@@ -1,21 +1,26 @@
 Nav{
-  background-color: white
-}
-
-Title{
-  position: fixed
-}
-
-nav:link{
-  background-color: blue;
-  color: white;
-  padding: 14px 25px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
+  list-style-type: none;
+  background-color: black;
+  padding:8px;
+  margin:0px;
+  border:0px;
 }
 
 
-nav:hover, nav:active {
-  background-color: gray;
+a.links {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
 }
+
+
+ul {
+  list-style-type: none;
+  margin:0px;
+  padding:0px;
+  border:0px;
+}
+
+
+

@@ -6,6 +6,7 @@ import PHI from './components/PHI'
 import LA from './components/LA'
 import Gallery from './components/Gallery'
 import Login from './components/Login/Login'
+import Saved from './components/Saved'
 
 
 export default (
@@ -15,7 +16,8 @@ export default (
       <Route component={ Gallery } path="/Gallery"/>
       <Route component={ NYC } path="/NYC" />
       <Route component={ PHI } path="/PHI" />
-      <Route component={ LA } path="/LA" />
+      <Route component={ LA } path="/Explore" />
+      <Route component={ Saved } path="/Saved" />
 
     </Switch>
   )

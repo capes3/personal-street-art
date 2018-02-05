@@ -28,12 +28,15 @@ class App extends Component {
       <div className="App">
       <nav className="Nav">
       
-          <nav className='link-wrap'>
+          <ul>
             <Link to="/" className='links'>Gallery</Link>
-            <Link to="/Home" className='links'>Home</Link>
-            <Link to="/About"className='links'>About</Link> 
+            <Link to="/NYC" className='links'>Home</Link>
+            <Link to="/PHI"className='links'>About</Link> 
             <Link to="/Explore"className='links'>Explore</Link> 
-          </nav>
+            <Link to="/Saved"className='links'>Saved</Link> 
+           </ul> 
+
+          
       
       </nav>
       {routes}
