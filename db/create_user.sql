@@ -1,3 +1,3 @@
-insert into users (id)
-    values($1)
+insert into users (id, user_number )
+    values($1, $2)
     returning *;

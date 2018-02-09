@@ -46,13 +46,15 @@ passport.use(new Auth0Strategy({
 
 
     let auth_id_int = parseInt(auth_id)
+    let user_number = 2
+    
     
 
     db.find_user([auth_id]).then( user => {
         if (user[0]){
             done(null, user[0].id)
         }else {
-            db.create_user([auth_id, profile.name.familyName, profile.name.givenName]).then(user =>{
+            db.create_user([auth_id, user_number]).then(user =>{
                 return done(null, user[0].id)
             })
         }
@@ -94,7 +96,7 @@ app.get('/auth/me', function (req, res, next){
 
     } else {
         res.status(200).send(req.user)
-        console.log(req.user)
+        // console.log(req.user)
     }
 })
 
@@ -106,11 +108,29 @@ app.get('/auth/logout',  function(req,res,next){
 
 
 app.post('/api/saved', function(req,res,next){
+    // console.log(req.body.savedImg)
+    console.log(req.user.user_number)
+    var id_int = parseInt(req.user) 
     req.app.get('db')
-        .save_img([req.sessionID, savedImg]).then(users => {
+        .save_img([req.user.user_number, req.body.savedImg]).then(users => {
             res.status(200).send()
         });
 })
+
+app.get('/api/saved', function(req,res,next){
+    req.app.get('db')
+    .get_saved_img([req.user.user_number]).then(img=>{
+        res.status(200).send(img).catch(err =>{console.log(err)})
+    })
+})
+
+app.delete('/api/saved', function(req,res,next){
+    req.app.get('db')
+    .delete_saved_img([req.user.user_number, req.body.savedImg]).then(users => {
+        res.status(200).send()
+    })
+})
+
 
 
 

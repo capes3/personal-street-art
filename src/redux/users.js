@@ -14,7 +14,7 @@ export function getUser(){
     .then( res =>{
         console.log('res', res.data)
         return res.data
-    }); //always use the axios call when doing this don't only time yoou use full URL is login and logout
+    }); //always use the axios call when doing this don't only time you use full URL is login and logout
     return {
         type: GET_USER,
         payload: userInfo

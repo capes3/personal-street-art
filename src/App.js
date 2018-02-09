@@ -29,8 +29,8 @@ class App extends Component {
       <nav className="Nav">
       
           <ul>
-            <Link to="/" className='links'>Gallery</Link>
-            <Link to="/NYC" className='links'>Home</Link>
+            {/* <Link to="/" className='links'>Gallery</Link> */}
+            {/* <Link to="/" className='links'>Home</Link> */}
             <Link to="/PHI"className='links'>About</Link> 
             <Link to="/Explore"className='links'>Explore</Link> 
             <Link to="/Saved"className='links'>Saved</Link> 

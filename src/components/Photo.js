@@ -7,7 +7,7 @@ class Photo extends Component {
       
     return (
       <div className="Gallery">
-            { <img src={this.props.photo.src}/> }
+            {/* { <img src={this.props.photo.src}/> } */}
       </div>
     );
   }

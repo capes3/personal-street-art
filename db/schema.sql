@@ -1,7 +1,5 @@
 drop table if exists user
 
-create table users(
-    id varchar,
-
-
-)
+CREATE TABLE users(
+id varchar,
+ user_number SERIAL PRIMARY KEY )
