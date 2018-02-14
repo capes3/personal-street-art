@@ -1,8 +1,8 @@
 import React from 'react'
 import {Switch, Route} from 'react-router-dom'
 
-import NYC from './components/NYC'
-import PHI from './components/PHI'
+import Admin from './components/Admin'
+import Featured from './components/Featured'
 import Explore from './components/Explore'
 import Gallery from './components/Gallery'
 import Login from './components/Login/Login'
@@ -14,8 +14,8 @@ export default (
 
       <Route component={ Login } exact path="/" />
       {/* <Route component={ Gallery } path="/Gallery"/> */}
-      <Route component={ NYC } path="/NYC" />
-      <Route component={ PHI } path="/PHI" />
+      <Route component={ Admin } path="/Admin" />
+      <Route component={ Featured } path="/Featured" />
       <Route component={ Explore } path="/Explore" />
       <Route component={ Saved } path="/Saved" />
 

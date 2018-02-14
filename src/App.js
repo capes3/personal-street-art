@@ -30,8 +30,8 @@ class App extends Component {
       
           <ul>
             {/* <Link to="/" className='links'>Gallery</Link> */}
-            {/* <Link to="/" className='links'>Home</Link> */}
-            <Link to="/PHI"className='links'>About</Link> 
+            <Link to="/Admin" className='links'>Admin</Link>
+            <Link to="/Featured"className='links'>Featured</Link> 
             <Link to="/Explore"className='links'>Explore</Link> 
             <Link to="/Saved"className='links'>Saved</Link> 
            </ul> 

@@ -15,7 +15,7 @@ componentWillMount(){
             axios.get('https://api.unsplash.com//photos/random?client_id=c7aba0db74e8fd5c2f6a521fd342505841804e687fe49c7583ea3636917eab77&collections=862246')
             .then((response)=>{
                 console.log(response.data)
-                this.setState({photos:response.data.urls.thumb})
+                this.setState({photos:response.data.urls.regular})
             }
             )
             .catch(function(error){

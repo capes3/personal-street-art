@@ -14,7 +14,7 @@ constructor(){
 
 componentWillMount(){
            axios.get('/api/saved').then(response=>{
-              console.log(response.data)
+              
                this.setState(
                    
                 {photos:response.data}
@@ -26,21 +26,24 @@ componentWillMount(){
            
         }
 
+delete=(save_id)=>{
+    console.log(this.state.save_id)
+}
 
 
+render(){
+    const imageCard = this.state.photos.map((photos, save_id)=>(
+        
+            <div key={photos.save_id}>
+                <img key={photos.save_id} src={photos.img_url}/>
+                <button key={photos.save_id} className="deleteButton" onClick = {this.delete.bind(this, save_id)}>DELETE</button>
+            </div>
+    ))
 
-  render() {
-      return(
-          <div>
-
-            {console.log(this.state.photos)}
-           {this.state.photos.map((photos,index)=>(
-               <img key = {index}src={photos.img_url}/>
-           ))}
-
-          </div>
-      )
-  }
+    return <div>
+        {imageCard}
+    </div>
+}
 }
 
 export default Saved;

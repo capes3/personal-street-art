@@ -46,7 +46,7 @@ passport.use(new Auth0Strategy({
 
 
     let auth_id_int = parseInt(auth_id)
-    let user_number = 2
+    let user_number = 1
     
     
 
@@ -109,7 +109,7 @@ app.get('/auth/logout',  function(req,res,next){
 
 app.post('/api/saved', function(req,res,next){
     // console.log(req.body.savedImg)
-    console.log(req.user.user_number)
+    // console.log(req.user.user_number)
     var id_int = parseInt(req.user) 
     req.app.get('db')
         .save_img([req.user.user_number, req.body.savedImg]).then(users => {
@@ -131,7 +131,20 @@ app.delete('/api/saved', function(req,res,next){
     })
 })
 
+app.get('/api/featured', function(req,res,next){
+    req.app.get('db')
+    .get_featured([req.body]).then(featured =>{
+        res.status(200).send(featured)
+    })
+})
 
+app.put('/api/featured', function(req,res,next){
+    console.log(req.body.newDescription)
+    req.app.get('db')
+    .update_featured_description([req.body.newDescription]).then(description =>{
+        res.status(200).send(description)
+    })
+})
 
 
 
