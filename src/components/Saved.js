@@ -18,10 +18,10 @@ componentWillMount(){
            }).catch(err=>{console.log(err)})
         }
 
-delete=(id)=>{
-    console.log(id)
-    axios.delete('/api/saved', {id} ).then(results =>{
-        alert("image was deleted")
+delete=(photos)=>{
+    console.log(photos)
+    axios.delete('/api/saved/:id', {params : photos} ).then(results =>{
+        alert('delete was successful')
     }).catch(()=>alert('delete failed'))
 } 
 

@@ -35,13 +35,13 @@ passport.use(new Auth0Strategy({
     callbackURL:process.env.AUTH_CALLBACK
 }, function(accessToken, refreshToken, extraParams, profile, done){
 
-    console.log(profile)
+    // console.log(profile)
     
     const db = app.get('db')
     let userData = profile
     let auth_id = userData.id.split('|')[1]
 
-    console.log(auth_id)
+    // console.log(auth_id)
     
 
 
@@ -108,7 +108,7 @@ app.get('/auth/logout',  function(req,res,next){
 
 
 app.post('/api/saved', function(req,res,next){
-    // console.log(req.body.savedImg)
+    // console.log(req.body)
     // console.log(req.user.user_number)
     var id_int = parseInt(req.user) 
     req.app.get('db')
@@ -120,16 +120,17 @@ app.post('/api/saved', function(req,res,next){
 app.get('/api/saved', function(req,res,next){
     req.app.get('db')
     .get_saved_img([req.user.user_number]).then(img=>{
-        res.status(200).send(img).catch(err =>{console.log(err)})
+        res.status(200).send(img)
     })
+    .catch(err =>{console.log(err)})
 })
 
-app.delete('/api/saved', function(req,res,next){
-    console.log(req.body.id)
+app.delete('/api/saved/:id', function(req,res,next){
     req.app.get('db')
-    .delete_saved_img().then(users => {
+    .delete_saved_img(req.query[0]).then(id => {
         res.status(200).send()
     })
+    .catch(err =>{console.log(err)})
 })
 
 app.get('/api/featured', function(req,res,next){
