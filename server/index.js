@@ -125,8 +125,9 @@ app.get('/api/saved', function(req,res,next){
 })
 
 app.delete('/api/saved', function(req,res,next){
+    console.log(req.body.id)
     req.app.get('db')
-    .delete_saved_img([req.user.user_number, req.body.savedImg]).then(users => {
+    .delete_saved_img().then(users => {
         res.status(200).send()
     })
 })
