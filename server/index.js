@@ -1,4 +1,4 @@
-
+// importing and requiring all the necessary dependencies
 require('dotenv').config()
 const express = require('express')
     , bodyParser = require('body-parser')
@@ -8,14 +8,16 @@ const express = require('express')
     , Auth0Strategy = require('passport-auth0')
     , massive = require('massive')
 
-
+// putting an instance of express on the variable app
 var app = express();
 
 app.use(cors())
 app.use(bodyParser.json())
 
+// using massive to connect to the postgres database through our dotenv file
 massive(process.env.DB_CONNECTION).then(db=> {app.set('db', db)})
 
+// using express session to set up session 
 app.use(session({
     secret: process.env.SESSION_SECRET,
     saveUninitialized: true,
@@ -23,6 +25,7 @@ app.use(session({
 }))
 
 // app.use(express.static(__dirname+'/../build'))
+
 
 app.use(passport.initialize()) // initializing passport so that you can use it. Setting up an instance of passport that you're goinng to use throughout your app
 app.use(passport.session()) //passport.session puts it back on req.user
@@ -43,12 +46,10 @@ passport.use(new Auth0Strategy({
 
     // console.log(auth_id)
     
+    // let auth_id_int = parseInt(auth_id)
+    // let user_number = 1
 
-
-    let auth_id_int = parseInt(auth_id)
-    let user_number = 1
-    
-    
+    //this connects to the database to find a user, and if there is one it returns that user, if not it creates a user.  I need to fix this.  
 
     db.find_user([auth_id]).then( user => {
         if (user[0]){
@@ -65,14 +66,13 @@ passport.use(new Auth0Strategy({
 
 }))
 
+//I think this just connects to passport, and auth0, then uses the paths that we give it in our dotenv file.  
 
-
-app.get('/auth', passport.authenticate('auth0')) //this is the initial request comes this fires process for new auth0 on line 27
+app.get('/auth', passport.authenticate('auth0')) 
 app.get('/auth/callback', passport.authenticate('auth0', {
     successRedirect: process.env.AUTH_SUCCESS_REDIRECT,
     failureRedirect:process.env.AUTH_LANDING_REDIRECT
 }))
-
 
 
 passport.serializeUser(function(user,done){
@@ -86,9 +86,11 @@ passport.deserializeUser(function(user,done){
     db.find_user_by_session([user]).then (user =>{
         done(null, user[0])
     })
-    //make query call to find the user that match req.user
+    
 })
-//desrializeUser gets ran anytime the user hits an endpoint that has a session 
+//deserializeUser gets ran anytime the user hits an endpoint that has a session 
+
+//these are express getting the authorization endpoints in order to get the auth0 page up.  
 
 app.get('/auth/me', function (req, res, next){
     if(!req.user){
@@ -100,13 +102,15 @@ app.get('/auth/me', function (req, res, next){
     }
 })
 
+//this is the logout endpoint, but I don't use it in my app yet.  
+
 app.get('/auth/logout',  function(req,res,next){
     req.logout()
     res.redirect(process.env.AUTH_LANDING_REDIRECT)
 }
 )
 
-
+//this is an express endpoint that gets an image from the random page, and saves it to the database, it uses req.user to find the user number, and then uses req.body to get the saved image.  
 app.post('/api/saved', function(req,res,next){
     // console.log(req.body)
     // console.log(req.user.user_number)
@@ -117,6 +121,14 @@ app.post('/api/saved', function(req,res,next){
         });
 })
 
+app.get('/auth/user', function(req,res){
+  
+    res.status(200).send(req.user)
+
+
+})
+
+//this gets the images in the saved based on ones that have the same user number that's on req.user, it sends that number to the get_saved_img sql file
 app.get('/api/saved', function(req,res,next){
     req.app.get('db')
     .get_saved_img([req.user.user_number]).then(img=>{
@@ -124,6 +136,8 @@ app.get('/api/saved', function(req,res,next){
     })
     .catch(err =>{console.log(err)})
 })
+
+//this deletes the image in the saved view based on its number.  It gets this number from req.query that comes from the front end.  
 
 app.delete('/api/saved/:id', function(req,res,next){
     req.app.get('db')
@@ -133,12 +147,16 @@ app.delete('/api/saved/:id', function(req,res,next){
     .catch(err =>{console.log(err)})
 })
 
+//this connects to the featured table in the database, and gets the url for the featured photo.  
+
 app.get('/api/featured', function(req,res,next){
     req.app.get('db')
     .get_featured([req.body]).then(featured =>{
         res.status(200).send(featured)
     })
 })
+
+//This also connects to the featured table, and it grabs the description.
 
 app.put('/api/featured', function(req,res,next){
     console.log(req.body.newDescription)
@@ -148,11 +166,15 @@ app.put('/api/featured', function(req,res,next){
     })
 })
 
+app.put('/api/featuredimg', function(req,res,next){
+    console.log(req.body.newImage)
+    req.app.get('db')
+    .update_featured_image([req.body.newImage]).then(image =>{
+        res.status(200).send(image)
+    })
+})
 
 
-
-
-
-
+//this just sets up our server on port 3005.  
 
 app.listen(3005, ()=>{console.log('app is listening on 3005')})

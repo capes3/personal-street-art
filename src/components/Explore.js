@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import Button from '@material-ui/core/Button';
 import axios from 'axios'
 
 class Explore extends Component {
@@ -11,7 +11,7 @@ constructor(){
         }
 
 
-componentWillMount(){
+componentDidMount(){
             axios.get('https://api.unsplash.com//photos/random?client_id=c7aba0db74e8fd5c2f6a521fd342505841804e687fe49c7583ea3636917eab77&collections=862246')
             .then((response)=>{
                 console.log(response.data)
@@ -31,14 +31,19 @@ handleClick = () =>{
     }).catch(()=>alert('failed at saving an image'))
 }
 
+handleRefresh = () =>{
+    // window.location.reload();
+    this.componentDidMount()
+}
+
 
   render() {
       return(
-          <div>
+          <div className="featured">
               
-              <img src={this.state.photos}/>
-              <button onClick={this.handleClick}>Save Image</button>
-              
+              <img onClick={this.handleRefresh}className="unsplash" src={this.state.photos}/>
+              <Button onClick={this.handleClick} variant="outlined" color="default">Save Image</Button>
+                <p>Click Image to See a New Picture</p>              
           </div>
       )
   }

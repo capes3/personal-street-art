@@ -30,7 +30,7 @@ render(){
     const imageCard = this.state.photos.map((photos, index)=>(
         
             <div key={index}>
-                <img  src={photos.img_url}/>
+                <img className="unsplash"  src={photos.img_url}/>
                 <button className="deleteButton" onClick = {this.delete.bind(this, photos.save_id)}>DELETE</button>
             </div>
     ))

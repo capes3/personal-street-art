@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
-
 import axios from 'axios'
+import Admin from './Admin'
 
 class Featured extends Component {
 constructor(){
     super()
     this.state={
         photos:"",
-        description:""
+        description:"",
+        isAdmin:false
     }
         }
 
 
 
-componentWillMount(){
+
+componentDidMount(){
         axios.get('/api/featured')
         .then((res)=>{console.log(res.data[0])
             console.log(res.data[0].img_url)
@@ -22,19 +24,19 @@ componentWillMount(){
         })
         .catch(function(error){
             console.log(error)
-        })
-
-    }
+        })}
 
     render(){
+        
         return(
-        <div>
+        <div className='featured'>
             
-            
-            <img src={this.state.photos}/>
-            <p>{this.state.description}</p> 
+            <img className="unsplash" src={this.state.photos}/>
+            <p>{this.state.description}</p>
+            <Admin/>
         </div>)
     }
+
 }
 
 

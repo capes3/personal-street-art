@@ -1,42 +1,83 @@
-import React, { Component } from 'react';
-import Photo from './Photo'
+import React, {Component} from 'react';// import React
+import axios from 'axios';
+
+
 
 class Gallery extends Component {
-constructor(){
-    super()
-    this.state={
-        photos:[  
-         { id:1, src: 'https://source.unsplash.com/2ShvY8Lf6l0/800x599', width: 4, height: 3 },
-         { id:2, src: 'https://source.unsplash.com/Dm-qxdynoEc/800x799', width: 4, height: 3 },
-         { id:3, src: 'https://source.unsplash.com/qDkso9nvCg0/600x799', width: 4, height: 3 },
-         { id:4, src: 'https://source.unsplash.com/iecJiKe_RNg/600x799', width: 4, height: 3 },
-         { id:5, src: 'https://source.unsplash.com/epcsn8Ed8kY/600x799', width: 4, height: 3 },
-         { id:6, src: 'https://source.unsplash.com/NQSWvyVRIJk/800x599', width: 4, height: 3 },
-         { id:7, src: 'https://source.unsplash.com/zh7GEuORbUw/600x799', width: 4, height: 3 },
-         { id:8, src: 'https://source.unsplash.com/PpOHJezOalU/800x599', width: 4, height: 3 },
-         { id:9, src: 'https://source.unsplash.com/I1ASdgphUH4/800x599', width: 4, height: 3 }
-       ]
-         }
-        }
-
-  render() {
-
-    let photos;
-    if(this.state.photos){
-        photos = this.state.photos.map(photo =>{
-            // console.log(photo)
-            return (
-                <Photo key={photo.id} photo={photo}/>
-            )
-        })
+    constructor(props){
+        super(props)
+            this.state= {
+                articles: []
+            };
     }
-      
+
+
+componentWillMount(){
+    this.getArticles(this.props.default)
+}
+
+// componentWillReceiveProps(nextProps) {
+//     if (nextProps !== this.props) {
+//         this.setState({
+//             url: `https://newsapi.org/v2/articles?source=${nextProps.default}&apiKey=fc7cb33d174f405aa1039835f47f7560`
+//         });
+
+//         this.getArticles(nextProps.default);
+//     }
+// }
+
+getArticles(url){
+    const apiKey = 'fc7cb33d174f405aa1039835f47f7560';
+
+    axios
+        .get(`https://newsapi.org/v2/everything?sources=the-guardian-uk&q=graffiti&apiKey=fc7cb33d174f405aa1039835f47f7560`)
+        .then(res=>{
+            const articles= res.data.articles;
+
+            this.setState({articles: articles});
+        })
+        .catch(error=> {
+            console.log(error);
+        });
+}
+
+
+
+render() {
     return (
-      <div className="Gallery">
-          {photos}  
+      <div className="cardsContainer">
+        {this.state.articles.map((news, i) => {
+          return (
+            <div className="card" key={[i]}>
+              <div className="content">
+                <h3 className="url">
+                  <a href={news.url} target="_blank">
+                    {news.title}
+                  </a>
+                </h3>
+                <p>{news.description}</p>
+                <div className="author">
+                  <p>
+                    By <i>{news.author ? news.author : this.props.default}</i>
+                  </p>
+                  
+                </div>
+              </div>
+              <div>
+                <img className="unsplash"src={news.urlToImage} alt="" />
+              </div>
+            
+            </div>
+          );
+        })}
       </div>
     );
   }
+
+
+
+
+
 }
 
 export default Gallery;
