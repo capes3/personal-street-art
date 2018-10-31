@@ -30,8 +30,7 @@ componentDidMount(){
         
         return(
         <div className='featured'>
-            
-            <img className="unsplash" src={this.state.photos}/>
+            <img alt="unsplash" className="unsplash" src={this.state.photos}/>
             <p>{this.state.description}</p>
             <Admin/>
         </div>)

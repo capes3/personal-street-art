@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
 import axios from 'axios'
 
 class Explore extends Component {
@@ -39,11 +38,12 @@ handleRefresh = () =>{
 
   render() {
       return(
-          <div className="featured">
-              
-              <img onClick={this.handleRefresh}className="unsplash" src={this.state.photos}/>
-              <Button onClick={this.handleClick} variant="outlined" color="default">Save Image</Button>
-                <p>Click Image to See a New Picture</p>              
+          <div className="exploreImage">
+              <div className="exploreWrapper">
+              <p>Click Image to See a New Picture</p>     
+              <button className="button" onClick={this.handleClick}>Save Image</button>
+              <img alt="random" onClick={this.handleRefresh}className="unsplash" src={this.state.photos}/>
+              </div>           
           </div>
       )
   }

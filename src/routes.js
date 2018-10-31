@@ -3,7 +3,7 @@ import {Switch, Route} from 'react-router-dom'
 
 import Featured from './components/Featured'
 import Explore from './components/Explore'
-import Gallery from './components/Gallery'
+import News from './components/News'
 import Login from './components/Login/Login'
 import Saved from './components/Saved'
 
@@ -12,7 +12,7 @@ export default (
     <Switch>
 
       <Route component={ Login } exact path="/" />
-      <Route component={ Gallery } path="/Gallery"/>
+      <Route component={ News } path="/News"/>
       <Route component={ Featured } path="/Featured" />
       <Route component={ Explore } path="/Explore" />
       <Route component={ Saved } path="/Saved" />

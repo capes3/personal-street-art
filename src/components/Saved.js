@@ -22,6 +22,7 @@ delete=(photos)=>{
     console.log(photos)
     axios.delete('/api/saved/:id', {params : photos} ).then(results =>{
         alert('delete was successful')
+        window.location.reload()
     }).catch(()=>alert('delete failed'))
 } 
 
@@ -29,9 +30,9 @@ delete=(photos)=>{
 render(){
     const imageCard = this.state.photos.map((photos, index)=>(
         
-            <div key={index}>
-                <img className="unsplash"  src={photos.img_url}/>
-                <button className="deleteButton" onClick = {this.delete.bind(this, photos.save_id)}>DELETE</button>
+            <div className="savedCard" key={index}>
+                <img alt="saved" className="unsplash"  src={photos.img_url}/>
+                <button className="button" onClick = {this.delete.bind(this, photos.save_id)}>DELETE</button>
             </div>
     ))
 

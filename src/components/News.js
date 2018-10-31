@@ -3,7 +3,7 @@ import axios from 'axios';
 
 
 
-class Gallery extends Component {
+class News extends Component {
     constructor(props){
         super(props)
             this.state= {
@@ -27,7 +27,6 @@ componentWillMount(){
 // }
 
 getArticles(url){
-    const apiKey = 'fc7cb33d174f405aa1039835f47f7560';
 
     axios
         .get(`https://newsapi.org/v2/everything?sources=the-guardian-uk&q=graffiti&apiKey=fc7cb33d174f405aa1039835f47f7560`)
@@ -80,4 +79,4 @@ render() {
 
 }
 
-export default Gallery;
+export default News;

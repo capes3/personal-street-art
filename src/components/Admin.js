@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { error } from 'util';
+import Button from '@material-ui/core/Button';
+
 
 
 class Admin extends Component {
@@ -15,6 +16,7 @@ class Admin extends Component {
 }
 
 handleChange(value){
+  console.log(this.state.message)
   this.setState({message:value})
 }
 
@@ -54,15 +56,15 @@ componentDidMount=()=>{
     if(this.state.admin===true){
       return(
         <div className="App-intro">
-        <input onChange={ (e)=> this.handleChange( e.target.value )} type="text"/>
-        <button onClick={this.handleClick}>Update Description</button>
-        <input onChange={ (e)=> this.handleImageChange( e.target.value )} type="text"/>
-        <button onClick={this.handleImageClick}>Update Image</button>
+        <input className="inputField" onChange={ (e)=> this.handleChange( e.target.value )} type="text"></input>
+        <Button onClick={this.handleClick} variant="outlined" color="default">Update Description</Button>
+        <input className="inputField" onChange={ (e)=> this.handleImageChange( e.target.value )} type="text"></input>
+        <Button onClick={this.handleImageClick} variant="outlined" color="default">Update Image</Button>
       </div>
       )
     }else{
       return null   
-    };
+    }
   }
 }
 
