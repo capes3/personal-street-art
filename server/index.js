@@ -47,7 +47,7 @@ passport.use(new Auth0Strategy({
     // console.log(auth_id)
     
     // let auth_id_int = parseInt(auth_id)
-    // let user_number = 1
+    let user_number = 10
 
     //this connects to the database to find a user, and if there is one it returns that user, if not it creates a user.  I need to fix this.  
 
@@ -55,7 +55,7 @@ passport.use(new Auth0Strategy({
         if (user[0]){
             done(null, user[0].id)
         }else {
-            db.create_user([auth_id, user_number]).then(user =>{
+            db.create_user([auth_id]).then(user =>{
                 return done(null, user[0].id)
             })
         }
