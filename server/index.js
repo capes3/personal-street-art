@@ -7,9 +7,14 @@ const express = require('express')
     , passport = require('passport')
     , Auth0Strategy = require('passport-auth0')
     , massive = require('massive')
+    , path = require('path')
 
 // putting an instance of express on the variable app
 var app = express();
+
+app.get('*', (req, res)=>{
+    res.sendFile(path.join(__dirname, '../build/index.html'))
+})
 
 app.use(cors())
 app.use(bodyParser.json())
