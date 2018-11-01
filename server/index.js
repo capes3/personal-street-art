@@ -12,6 +12,8 @@ const express = require('express')
 // putting an instance of express on the variable app
 var app = express();
 
+app.use( express.static( `${__dirname}/../build` ) );
+
 app.get('*', (req, res)=>{
     res.sendFile(path.join(__dirname, '../build/index.html'))
 })
